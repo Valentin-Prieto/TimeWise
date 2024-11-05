@@ -1,7 +1,7 @@
 import reflex as rx
 
-from chat.components import loading_icon
-from chat.state import QA, State
+from timewise.components import loading_icon
+from timewise.state import QA, State
 
 
 message_style = dict(display="inline-block", padding="1em", border_radius="8px", max_width=["30em", "30em", "50em", "50em", "50em", "50em"])
@@ -95,7 +95,7 @@ def action_bar() -> rx.Component:
                 font_size=".75em",
                 color=rx.color("mauve", 10),
             ),
-            rx.logo(margin_top="-1em", margin_bottom="-1em"),
+            #rx.logo(margin_top="-1em", margin_bottom="-1em"),
             align_items="center",
         ),
         position="sticky",

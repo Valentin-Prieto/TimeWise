@@ -1,5 +1,5 @@
 import reflex as rx
-from chat.state import State
+from timewise.state import State
 
 def sidebar_chat(chat: str) -> rx.Component:
     """A sidebar chat item.
@@ -59,13 +59,13 @@ def modal(trigger) -> rx.Component:
         rx.dialog.content(
             rx.hstack(
                 rx.input(
-                    placeholder="Type something...",
+                    placeholder="Haga su consulta...",
                     on_blur=State.set_new_chat_name,
                     width=["15em", "20em", "30em", "30em", "30em", "30em"],
                 ),
                 rx.dialog.close(
                     rx.button(
-                        "Create chat",
+                        "Crear chat",
                         on_click=State.create_chat,
                     ),
                 ),
@@ -81,19 +81,20 @@ def navbar():
     return rx.box(
         rx.hstack(
             rx.hstack(
-                rx.avatar(fallback="SV", variant="solid"),
+                #rx.avatar(fallback="SV", variant="solid"),
+                rx.button(rx.hstack(rx.icon("chevron-left")), width="auto", on_click=lambda: rx.redirect("/")),  # To go back to home page
                 rx.heading("TimeWise"),
                 rx.desktop_only(
                     rx.badge(
                     State.current_chat,
-                    rx.tooltip(rx.icon("info", size=12), content="The current selected chat."),
+                    rx.tooltip(rx.icon("info", size=12), content="Chat actual."),
                     variant="soft"
                     )
                 ),
                 align_items="center",
             ),
             rx.hstack(
-                modal(rx.button("+ Nuevo chat")),
+                modal(rx.button("Nuevo chat")),
                 sidebar(
                     rx.button(
                         rx.icon(
@@ -106,7 +107,7 @@ def navbar():
                 rx.desktop_only(
                     rx.button(
                         rx.icon(
-                            tag="sliders-horizontal",
+                            tag="files",
                             color=rx.color("mauve", 12),
                         ),
                         background_color=rx.color("mauve", 6),

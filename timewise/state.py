@@ -3,9 +3,9 @@ import reflex as rx
 from openai import OpenAI
 
 
-## Checking if the API key is set properly
-#if not os.getenv("OPENAI_API_KEY"):
-#    raise Exception("Please set OPENAI_API_KEY environment variable.")
+# Checking if the API key is set properly
+if not os.getenv("OPENAI_API_KEY"):
+    raise Exception("Please set OPENAI_API_KEY environment variable.")
 
 
 class QA(rx.Base):
@@ -16,7 +16,7 @@ class QA(rx.Base):
 
 
 DEFAULT_CHATS = {
-    "Intros": [],
+    "Chat #1": [],
 }
 
 
@@ -27,7 +27,7 @@ class State(rx.State):
     chats: dict[str, list[QA]] = DEFAULT_CHATS
 
     # The current chat name.
-    current_chat = "Intros"
+    current_chat = "Chat #1"
 
     # The current question.
     question: str

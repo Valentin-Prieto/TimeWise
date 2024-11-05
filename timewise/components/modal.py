@@ -1,5 +1,5 @@
 import reflex as rx
-from chat.state import State
+from timewise.state import State
 
 
 def modal() -> rx.Component:
