@@ -1,7 +1,7 @@
 import reflex as rx
 
 from timewise.components import loading_icon
-from timewise.state import QA, State
+from timewise.state_file_upload import QA, State
 
 
 message_style = dict(display="inline-block", padding="1em", border_radius="8px", max_width=["30em", "30em", "50em", "50em", "50em", "50em"])
