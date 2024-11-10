@@ -1,5 +1,5 @@
 import reflex as rx
-from timewise.state_file_upload import State
+from timewise.state import State
 
 
 def modal() -> rx.Component:

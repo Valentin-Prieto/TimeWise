@@ -1,21 +1,14 @@
 import reflex as rx
 
 from timewise.components import loading_icon
-from timewise.state_file_upload import QA, State
+from timewise.state import QA, State
 
 
-message_style = dict(display="inline-block", padding="1em", border_radius="8px", max_width=["30em", "30em", "50em", "50em", "50em", "50em"])
+message_style = dict(display="inline-block", padding="1em", border_radius="8px", max_width=["20em", "20em", "40em", "40em", "40em", "40em"])
 
 
 def message(qa: QA) -> rx.Component:
-    """A single question/answer message.
-
-    Args:
-        qa: The question/answer pair.
-
-    Returns:
-        A component displaying the question/answer pair.
-    """
+    """Diseño de los mensajes del chat."""
     return rx.box(
         rx.box(
             rx.markdown(
@@ -42,7 +35,7 @@ def message(qa: QA) -> rx.Component:
 
 
 def chat() -> rx.Component:
-    """List all the messages in a single conversation."""
+    """Listado de los mensajes."""
     return rx.vstack(
         rx.box(rx.foreach(State.chats[State.current_chat], message), width="100%"),
         py="8",
@@ -57,7 +50,7 @@ def chat() -> rx.Component:
 
 
 def action_bar() -> rx.Component:
-    """The action bar to send a new message."""
+    """Barra inferior en donde se escribe y se envía el mensaje/prompt."""
     return rx.center(
         rx.vstack(
             rx.chakra.form(
@@ -67,10 +60,10 @@ def action_bar() -> rx.Component:
                             rx.input.slot(
                                 rx.tooltip(
                                     rx.icon("info", size=18),
-                                    content="Enter a question to get a response.",
+                                    content="Enviá una consulta.",
                                 )
                             ),
-                            placeholder="Type something...",
+                            placeholder="Escribí tu consulta...",
                             id="question",
                             width=["15em", "20em", "45em", "50em", "50em", "50em"],
                         ),
@@ -78,7 +71,7 @@ def action_bar() -> rx.Component:
                             rx.cond(
                                 State.processing,
                                 loading_icon(height="1em"),
-                                rx.text("Send"),
+                                rx.text("Enviar"),
                             ),
                             type="submit",
                         ),
@@ -90,12 +83,11 @@ def action_bar() -> rx.Component:
                 reset_on_submit=True,
             ),
             rx.text(
-                "ReflexGPT may return factually incorrect or misleading responses. Use discretion.",
+                "TimeWise es el aliado que necesitás para resolver todas las consultas que tengas.",
                 text_align="center",
                 font_size=".75em",
                 color=rx.color("mauve", 10),
             ),
-            #rx.logo(margin_top="-1em", margin_bottom="-1em"),
             align_items="center",
         ),
         position="sticky",

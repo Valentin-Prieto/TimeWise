@@ -2,7 +2,7 @@ import reflex as rx
 from timewise.components import chat, navbar
 
 def chat_page() -> rx.Component:
-    """The chat page."""
+    """Página principal (chat)."""
     return rx.chakra.vstack(
         navbar(),
         chat.chat(),
