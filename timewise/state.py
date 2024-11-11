@@ -124,7 +124,7 @@ class State(rx.State):
                 "llm": {
                     "provider": "ollama",
                     "config": {
-                        "model": "llama3.2:latest",
+                        "model": "llama3.2:1b",
                         "max_tokens": 250,
                         "temperature": 0.5,
                         "stream": True,
@@ -138,7 +138,7 @@ class State(rx.State):
                 "embedder": {
                     "provider": "ollama",
                     "config": {
-                        "model": "llama3.2:latest",
+                        "model": "llama3.2:1b",
                         "base_url": 'http://localhost:11434'
                     }
                 }
