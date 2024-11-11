@@ -1,7 +1,7 @@
 import os
 import reflex as rx
 import tempfile
-from embedchain import App  # Ajusta el import según donde tengas definida la clase App.
+from embedchain import App
 
 class QA(rx.Base):
     """Un par de pregunta y respuesta."""
@@ -36,11 +36,9 @@ class State(rx.State):
         outfile = rx.get_upload_dir() / file.filename
         self.pdf_filename = file.filename
 
-        # Save the file
         with outfile.open("wb") as file_object:
             file_object.write(upload_data)
 
-        # Process and add to knowledge base
         app = self.get_app()
         app.add(str(outfile), data_type="pdf_file")
         self.knowledge_base_files.append(self.pdf_filename)
@@ -49,8 +47,7 @@ class State(rx.State):
 
     def delete_file(self, file_name:str):
         self.knowledge_base_files = [file for file in self.knowledge_base_files if file!=file_name]
-        #State.handle_upload(rx.upload_files(upload_id="pdf_upload"))
-        self.remove_embeddings(file_name)    # Additional step to delete embeddings or processed data from the vector database
+        self.remove_embeddings(file_name)
 
     def get_database_embeddings(self):
         app_instance = self.get_app_instance()

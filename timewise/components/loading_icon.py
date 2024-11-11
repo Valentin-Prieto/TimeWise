@@ -2,7 +2,7 @@ import reflex as rx
 
 
 class LoadingIcon(rx.Component):
-    """A custom loading icon component."""
+    """Ícono de carga."""
 
     library = "react-loading-icons"
     tag = "SpinningCircles"

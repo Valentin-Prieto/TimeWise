@@ -97,7 +97,6 @@ def sidebar_files(trigger) -> rx.Component:
                     ),
                     rx.foreach(rx.selected_files("pdf_upload"), rx.text),
                     rx.foreach(State.knowledge_base_files, lambda file: files(file)),
-                    #rx.foreach(State.chat_titles, lambda chat: files(chat)),
                     rx.hstack(
                         rx.button(
                             "Procesar",
@@ -109,11 +108,11 @@ def sidebar_files(trigger) -> rx.Component:
                             on_click=rx.clear_selected_files("pdf_upload"),
                             align_self="flex-start",
                         ),
-                        justify="space-between",  # Espaciar los botones en los extremos
+                        justify="space-between",
                         width="100%",
                         padding="2em",
                     ),
-                    rx.text(State.upload_status),  # Display upload status
+                    rx.text(State.upload_status),
                     align_items="stretch",
                     width="100%",
                 ),
