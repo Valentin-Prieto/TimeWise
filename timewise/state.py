@@ -39,7 +39,7 @@ class State(rx.State):
         with outfile.open("wb") as file_object:
             file_object.write(upload_data)
 
-        app = self.get_app()
+        app = self.get_app_instance()
         app.add(str(outfile), data_type="pdf_file")
         self.knowledge_base_files.append(self.pdf_filename)
 
