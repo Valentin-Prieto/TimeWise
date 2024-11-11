@@ -9,4 +9,4 @@ app = rx.App(
         accent_color="violet",
     ),
 )
-app.add_page(chat.chat_page(), route="/chat")
+app.add_page(chat.chat_page(), route="/")
