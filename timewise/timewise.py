@@ -10,3 +10,4 @@ app = rx.App(
     ),
 )
 app.add_page(chat.chat_page(), route="/chat")
+app.run(host="0.0.0.0", port=3000)
