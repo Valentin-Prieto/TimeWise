@@ -106,14 +106,12 @@ class State(rx.State):
         app_instance = self.get_app_instance()              # Instancia de la aplicación.
         prompt = question
 
-        answer_llm = app_instance.chat(prompt)              # Se envía la pregunta
+        answer_llm = app_instance.chat(prompt)              # Respuesta LLM
 
-        for item in answer_llm:
-            if "content" in item:
-                answer_text = item["content"]               # Respuesta LLM.
-                self.chats[self.current_chat][-1].answer += answer_text
-                self.chats = self.chats
-                yield
+        self.chats[self.current_chat][-1].answer += answer_llm
+        yield
+        self.chats = self.chats
+        yield
 
         self.processing = False
 
