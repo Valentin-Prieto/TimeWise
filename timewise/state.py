@@ -56,8 +56,8 @@ class State(rx.State):
     
     def remove_embeddings(self, file_name):
         """Eliminar los datos del archivo de la base de datos de vectores"""
-        database = self.get_database_embeddings()
-        database.delete(conditions={"file_name": file_name})
+        app_instance = self.get_app_instance()
+        app_instance.delete_embeddings(file_name)
 
     def create_chat(self):
         """Crear chat nuevo."""
@@ -102,7 +102,7 @@ class State(rx.State):
         yield
 
         app_instance = self.get_app_instance()  # Instancia de la aplicación.
-        database = app_instance.vectordb
+        database = app_instance.embedder.vectordb
 
         # Realizar consulta en la base de datos de vectores
         relevant_docs = database.query(question)  # Realiza la búsqueda por similitud
