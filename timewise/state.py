@@ -84,16 +84,17 @@ class State(rx.State):
         # while i < 5:
         #     print(split_docs[i], type(split_docs[i]))
         #     i+=1
-        texts = []
-        for doc in split_docs:
-            print("CONTENT", doc.page_content)
-            
-            texts.append(doc.page_content)
-        print("TEXTS", texts)
+        # texts = []
+        # for doc in split_docs:
+        #     print("CONTENT", doc.page_content)
+
+        #     texts.append(doc.page_content)
+        # print("TEXTS", texts)
         #texts = [doc.page_content if hasattr(doc, 'page_content') else doc for doc in split_docs]
         #texts = [" ".join(doc) if isinstance(doc, list) else doc for doc in texts]
+        print("SPLIT", split_docs)
         embeddings = HuggingFaceEmbeddings(model_name = 'sentence-transformers/all-MiniLM-L6-v2')
-        db = FAISS.from_documents(texts, embeddings)
+        db = FAISS.from_documents(split_docs, embeddings)
         db.save_local('vectorstore/db_faiss')
         
         return db
