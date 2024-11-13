@@ -91,7 +91,8 @@ class State(rx.State):
         contextualize_q_system_prompt = ("Dado el historial del chat y la última pregunta, respondé directamente a la pregunta basándote en los documentos provistos.")
         contextualize_q_prompt = ChatPromptTemplate.from_messages([("system", contextualize_q_system_prompt), MessagesPlaceholder("chat_history"), ("human", "{input}")])
         history_aware_retriever = create_history_aware_retriever(llm, retriever, contextualize_q_prompt)
-        system_prompt = ("Como asistente personal, provea información certera y relevante, basándose en el conocimiento almacenado. No haga preguntas como respuesta. Si no sabe la respuesta según sus documentos, responda que no cuenta con esa información.")
+        system_prompt = ("Como asistente personal, provea información certera y relevante, basándose en el conocimiento almacenado. No haga preguntas como respuesta. Si no sabe la respuesta según sus documentos, responda que no cuenta con esa información."
+                         "{context}")
         qa_prompt = ChatPromptTemplate.from_messages([("system", system_prompt), MessagesPlaceholder("chat_history"), ("human", "{input}")])
         question_answer_chain = create_stuff_documents_chain(llm, qa_prompt)
         rag_chain = create_retrieval_chain(history_aware_retriever, question_answer_chain)
