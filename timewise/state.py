@@ -45,11 +45,11 @@ class State(rx.State):
 
     ########## ARCHIVOS ##########
 
-    def split_documents(self, files: list[rx.UploadFile]):
+    async def split_documents(self, files: list[rx.UploadFile]):
         """Carga y procesamiento de archivos."""
-        # if not files:
-        #     self.upload_status = "No hay archivos cargados"
-        #     return
+        if not files:
+            self.upload_status = "No hay archivos cargados"
+            return
 
         # file = files[0]
         # upload_data = await file.read()
@@ -66,8 +66,9 @@ class State(rx.State):
 
         split_docs = []
         for pdf in files:
+            upload_data = await pdf.read()
             with open(pdf.filename, "wb") as f:
-                f.write(pdf.read())
+                f.write(upload_data)
             loader = PyPDFLoader(pdf.filename)
             documents = loader.load()
             splitter = RecursiveCharacterTextSplitter.from_tiktoken_encoder(chunk_size=512, chunk_overlap=256, disallowed_special=(), separators=["\n\n", "\n"," "])
