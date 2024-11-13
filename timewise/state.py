@@ -80,8 +80,12 @@ class State(rx.State):
     async def upload_to_vectordb(self, split_docs):
         #print("SPLIT DOCS", split_docs)
         print("TIPO",type(split_docs))
-        texts = [doc.page_content if hasattr(doc, 'page_content') else doc for doc in split_docs]
-        texts = [" ".join(doc) if isinstance(doc, list) else doc for doc in texts]
+        i=0
+        while i < 5:
+            print(split_docs[i], type(split_docs[i]))
+            i+=1
+        #texts = [doc.page_content if hasattr(doc, 'page_content') else doc for doc in split_docs]
+        #texts = [" ".join(doc) if isinstance(doc, list) else doc for doc in texts]
         embeddings = HuggingFaceEmbeddings(model_name = 'sentence-transformers/all-MiniLM-L6-v2')
         db = FAISS.from_documents(texts, embeddings)
         db.save_local('vectorstore/db_faiss')
