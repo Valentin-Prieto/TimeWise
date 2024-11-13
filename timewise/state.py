@@ -78,6 +78,7 @@ class State(rx.State):
         return split_docs
     
     async def upload_to_vectordb(self, split_docs):
+        print("SPLIT DOCS", split_docs)
         embeddings = HuggingFaceEmbeddings(model_name = 'sentence-transformers/all-MiniLM-L6-v2')
         db = FAISS.from_documents(split_docs, embeddings)
         db.save_local('vectorstore/db_faiss')
@@ -157,19 +158,24 @@ class State(rx.State):
     async def process_question(self, form_data: dict[str, str]):
         """Procesar prompt."""
         global conversational_chain
+        print("CONVEERSATIONAL CHAIN", conversational_chain)
+
         question = form_data["question"]
-        
+        print("QUESTION", question)
+
         if question == "":
             return
         
         qa = QA(question=question, answer="")
         self.chats[self.current_chat].append(qa)
+        print("QA", qa)
         
         self.processing = True
         yield
         
         chat_rag = conversational_chain
         response = chat_rag.invoke({"input": question}, config={"configurable": {"session_id": self.current_chat}})
+        print("RESPONSE", response)
         context_docs = response.get('context', [])
 
         self.chats[self.current_chat][-1].answer += context_docs
