@@ -106,7 +106,7 @@ class State(rx.State):
 
         #return conversational_rag_chain
     
-    def handle_upload(self, files):
+    def handle_upload(self, files:list[rx.UploadFile]):
         split_documents = self.split_documents(files)
         vector_database = self.upload_to_vectordb(split_documents)
         retriever = vector_database.as_retriever()
