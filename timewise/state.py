@@ -67,7 +67,7 @@ class State(rx.State):
         split_docs = []
         for pdf in files:
             with open(pdf.filename, "wb") as f:
-                f.write(pdf.getbuffer())
+                f.write(pdf.read())
             loader = PyPDFLoader(pdf.filename)
             documents = loader.load()
             splitter = RecursiveCharacterTextSplitter.from_tiktoken_encoder(chunk_size=512, chunk_overlap=256, disallowed_special=(), separators=["\n\n", "\n"," "])
