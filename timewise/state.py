@@ -77,7 +77,7 @@ class State(rx.State):
         
         return split_docs
     
-    def upload_to_vectordb(self, split_docs):
+    async def upload_to_vectordb(self, split_docs):
         embeddings = HuggingFaceEmbeddings(model_name = 'sentence-transformers/all-MiniLM-L6-v2')
         db = FAISS.from_documents(split_docs, embeddings)
         db.save_local('vectorstore/db_faiss')
@@ -107,9 +107,9 @@ class State(rx.State):
 
         #return conversational_rag_chain
     
-    def handle_upload(self, files:list[rx.UploadFile]):
-        split_documents = self.split_documents(files)
-        vector_database = self.upload_to_vectordb(split_documents)
+    async def handle_upload(self, files:list[rx.UploadFile]):
+        split_documents = await self.split_documents(files)
+        vector_database = await self.upload_to_vectordb(split_documents)
         retriever = vector_database.as_retriever()
         self.upload_status = f"¡Se procesaron y agregaron los archivos a la base de datos!"
         self.get_conversation_chain(retriever)
