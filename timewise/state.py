@@ -78,7 +78,7 @@ class State(rx.State):
         return split_docs
     
     async def upload_to_vectordb(self, split_docs):
-        print("SPLIT DOCS", split_docs)
+        #print("SPLIT DOCS", split_docs)
         embeddings = HuggingFaceEmbeddings(model_name = 'sentence-transformers/all-MiniLM-L6-v2')
         db = FAISS.from_documents(split_docs, embeddings)
         db.save_local('vectorstore/db_faiss')
