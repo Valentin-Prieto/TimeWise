@@ -66,13 +66,13 @@ class State(rx.State):
 
         split_docs = []
         for pdf in files:
-            with open(pdf.name, "wb") as f:
+            with open(pdf.filename, "wb") as f:
                 f.write(pdf.getbuffer())
-            loader = PyPDFLoader(pdf.name)
+            loader = PyPDFLoader(pdf.filename)
             documents = loader.load()
             splitter = RecursiveCharacterTextSplitter.from_tiktoken_encoder(chunk_size=512, chunk_overlap=256, disallowed_special=(), separators=["\n\n", "\n"," "])
             split_docs.extend(splitter.split_documents(documents))
-            self.knowledge_base_files.append(pdf.name)
+            self.knowledge_base_files.append(pdf.filename)
         
         return split_docs
     
