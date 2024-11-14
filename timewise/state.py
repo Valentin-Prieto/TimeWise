@@ -164,6 +164,7 @@ class State(rx.State):
 
     def format_docs(self, docs):
         """Para transformar el contexto en cadena de texto"""
+        docs = self.docs
         return "\n\n".join([doc.page_content for doc in docs])
 
     @rx.var
@@ -195,7 +196,6 @@ class State(rx.State):
         #prompt = hub.pull("rlm/rag-prompt")
         prompt = """
             Eres un asistente para tareas de preguntas y respuestas. Utiliza los siguientes fragmentos de contexto recuperado para responder la pregunta.
-            Si no sabes la respuesta, simplemente di que no sabes.
             Responde en viñetas. Asegúrate de que tu respuesta sea relevante para la pregunta y esté basada únicamente en el contexto proporcionado.
             Question: {question} 
             Context: {context} 
