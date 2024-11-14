@@ -20,6 +20,7 @@ from typing import List
 os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
 UPLOAD_FOLDER = "./uploaded_files"
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+vector_store:FAISS
 
 class QA(rx.Base):
     """Un par de pregunta y respuesta."""
@@ -41,8 +42,8 @@ class State(rx.State):
     #pdf_filename: str = ""
     knowledge_base_files: list[str] = []            # Listado con los nombres de los archivos procesados
     upload_status: str = ""
-    vector_store: FAISS
-    docs:List = []
+    #vector_store: FAISS
+    docs: List = []
 
     ###### INGESTA DE DATOS #####
     
@@ -74,19 +75,21 @@ class State(rx.State):
         return chunks
     
     def generate_vector_embedding(self):
+        global vector_store
         embeddings = OllamaEmbeddings(model='nomic-embed-text', base_url="http://localhost:11434")
         single_vector = embeddings.embed_query("this is some text data")
         index = faiss.IndexFlatL2(len(single_vector))
-        self.vector_store = FAISS(
+        vector_store = FAISS(
             embedding_function=embeddings,
             index=index,
             docstore=InMemoryDocstore(),
             index_to_docstore_id={}
         )
-        return self.vector_store
+        return vector_store
     
     def create_vector_db(self,chunks):
-        ids = self.vector_store.add_documents(documents=chunks)
+        global vector_store
+        ids = vector_store.add_documents(documents=chunks)
         return ids
     
     # def store_db(self, vector_store):
@@ -151,12 +154,13 @@ class State(rx.State):
         return list(self.chats.keys())
     
     def ollama_process_question(self,question):
+        global vector_store
         qa = QA(question=question, answer="")
         self.chats[self.current_chat].append(qa)            # Agrego la pregunta/prompt al listado de preguntas
         self.processing = True
         yield
         #relevant_data = self.vector_store.search(query=question, search_type='similarity')
-        retriever = self.vector_store.as_retriever(search_type="mmr", search_kwargs = {'k': 3, 'fetch_k': 100,'lambda_mult': 1})
+        retriever = vector_store.as_retriever(search_type="mmr", search_kwargs = {'k': 3, 'fetch_k': 100,'lambda_mult': 1})
         #retriever.invoke(question)
         model = ChatOllama(model="llama3.2:1b", base_url="http://localhost:11434")
         #prompt = hub.pull("rlm/rag-prompt")
