@@ -194,10 +194,9 @@ class State(rx.State):
         model = ChatOllama(model="llama3.2:3b", base_url="http://localhost:11434")
         #prompt = hub.pull("rlm/rag-prompt")
         prompt = """
-            You are an assistant for question-answering tasks. Use the following pieces of retrieved context to answer the question.
-            Make sure your answer is relevant to the question and it is answered from the context only.
-            If you don't know the answer, just say that you don't have enough information. If you have at least some information, don't say that you don't.
-            Answer in spanish.
+            Eres un asistente para tareas de preguntas y respuestas. Utiliza los siguientes fragmentos de contexto recuperado para responder la pregunta.
+            Asegúrate de que tu respuesta sea relevante para la pregunta y que se base únicamente en el contexto proporcionado.
+            Si no sabes la respuesta, simplemente di que no tienes suficiente información. Si tienes al menos algo de información, no digas que no la tienes.
             Question: {question} 
             Context: {context} 
             Answer:
