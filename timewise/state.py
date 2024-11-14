@@ -202,7 +202,7 @@ class State(rx.State):
         #     Context: {context} 
         #     Answer:
         # """
-        prompt = ChatPromptTemplate.from_template(prompt)
+        #prompt = ChatPromptTemplate.from_template(prompt)
         rag_chain = (
             {"context": retriever|self.format_docs, "question": RunnablePassthrough()}
             | prompt
