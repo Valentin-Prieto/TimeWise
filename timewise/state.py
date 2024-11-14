@@ -71,7 +71,7 @@ class State(rx.State):
         return self.docs
 
     def generate_chunks(self, docs):
-        text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=100)
+        text_splitter = RecursiveCharacterTextSplitter(chunk_size=512, chunk_overlap=256)
         chunks = text_splitter.split_documents(docs)                                            # La cantidad de chunks es cuántos tenemos por cada documento (chunk = parte de la página)
         return chunks
     
@@ -192,17 +192,17 @@ class State(rx.State):
         retriever = vector_store.as_retriever(search_type="mmr", search_kwargs = {'k': 3, 'fetch_k': 200,'lambda_mult': 1})
         #retriever.invoke(question)
         model = ChatOllama(model="llama3.2:3b", base_url="http://localhost:11434")
-        prompt = hub.pull("rlm/rag-prompt")
-        # prompt = """
-        #     You are an assistant for question-answering tasks. Use the following pieces of retrieved context to answer the question.
-        #     Make sure your answer is relevant to the question and it is answered from the context only.
-        #     If you don't know the answer, just say that you don't have enough information. If you have at least some information, don't say that you don't.
-        #     Answer in spanish.
-        #     Question: {question} 
-        #     Context: {context} 
-        #     Answer:
-        # """
-        #prompt = ChatPromptTemplate.from_template(prompt)
+        #prompt = hub.pull("rlm/rag-prompt")
+        prompt = """
+            You are an assistant for question-answering tasks. Use the following pieces of retrieved context to answer the question.
+            Make sure your answer is relevant to the question and it is answered from the context only.
+            If you don't know the answer, just say that you don't have enough information. If you have at least some information, don't say that you don't.
+            Answer in spanish.
+            Question: {question} 
+            Context: {context} 
+            Answer:
+        """
+        prompt = ChatPromptTemplate.from_template(prompt)
         rag_chain = (
             {"context": retriever|self.format_docs, "question": RunnablePassthrough()}
             | prompt
