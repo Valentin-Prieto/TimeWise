@@ -40,7 +40,7 @@ class State(rx.State):
     #pdf_filename: str = ""
     knowledge_base_files: list[str] = []            # Listado con los nombres de los archivos procesados
     upload_status: str = ""
-    vector_store = None
+    vector_store: FAISS
     docs = None
 
     ###### INGESTA DE DATOS #####
