@@ -187,8 +187,9 @@ class State(rx.State):
         self.chats[self.current_chat].append(qa)            # Agrego la pregunta/prompt al listado de preguntas
         self.processing = True
         yield
+        print(vector_store)
         #relevant_data = self.vector_store.search(query=question, search_type='similarity')
-        retriever = vector_store.as_retriever(search_type="mmr", search_kwargs = {'k': 3, 'fetch_k': 100,'lambda_mult': 1})
+        retriever = vector_store.as_retriever(search_type="similarity", search_kwargs = {'k': 1, 'fetch_k': 100,'lambda_mult': 1})
         #retriever.invoke(question)
         model = ChatOllama(model="llama3.2:1b", base_url="http://localhost:11434")
         #prompt = hub.pull("rlm/rag-prompt")
