@@ -162,9 +162,8 @@ class State(rx.State):
         """Cambiar el nombre del chat."""
         self.current_chat = chat_name
 
-    def format_docs(self):
+    def format_docs(self, docs):
         """Para transformar el contexto en cadena de texto"""
-        docs = self.docs
         return "\n\n".join([doc.page_content for doc in docs])
 
     @rx.var
