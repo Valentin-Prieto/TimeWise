@@ -47,11 +47,12 @@ class State(rx.State):
 
     ###### INGESTA DE DATOS #####
     
-    def save_uploaded_file(self, uploaded_file):
+    async def save_uploaded_file(self, uploaded_file):
         """Cargar los archivos subidos a la carpeta 'UPLOAD_FOLDER'"""
         file_path = os.path.join(UPLOAD_FOLDER, uploaded_file.filename)
         with open(file_path, "wb") as f:
-            f.write(uploaded_file.read())
+            content = await uploaded_file.read()
+            f.write(content)
         #return file_path
     
     def process_files(self, uploaded_files:list[rx.UploadFile]):
@@ -101,9 +102,9 @@ class State(rx.State):
     #     new_vector_store = FAISS.load_local(db_name, embeddings=embeddings, allow_dangerous_deserialization=True)
 
 
-    def handle_upload(self, uploaded_files:list[rx.UploadFile]):
+    async def handle_upload(self, uploaded_files:list[rx.UploadFile]):
         for file in uploaded_files:
-            self.save_uploaded_file(file)
+            await self.save_uploaded_file(file)
         self.process_files(uploaded_files)
         chunks = self.generate_chunks(self.docs)
         self.generate_vector_embedding()
