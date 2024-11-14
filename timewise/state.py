@@ -15,6 +15,7 @@ from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnablePassthrough
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_ollama import ChatOllama
+from typing import List
 
 os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
 UPLOAD_FOLDER = "./uploaded_files"
@@ -41,7 +42,7 @@ class State(rx.State):
     knowledge_base_files: list[str] = []            # Listado con los nombres de los archivos procesados
     upload_status: str = ""
     vector_store: FAISS
-    docs = None
+    docs:List = []
 
     ###### INGESTA DE DATOS #####
     
