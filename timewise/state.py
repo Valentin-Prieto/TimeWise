@@ -189,14 +189,14 @@ class State(rx.State):
         yield
         print(vector_store)
         #relevant_data = self.vector_store.search(query=question, search_type='similarity')
-        retriever = vector_store.as_retriever(search_type="mmr", search_kwargs = {'k': 3, 'fetch_k': 200,'lambda_mult': 1})
+        retriever = vector_store.as_retriever(search_type="mmr", search_kwargs = {'k': 3, 'fetch_k': 100,'lambda_mult': 1})
         #retriever.invoke(question)
-        model = ChatOllama(model="llama3.2:3b", base_url="http://localhost:11434")
+        model = ChatOllama(model="llama3.2:1b", base_url="http://localhost:11434")
         #prompt = hub.pull("rlm/rag-prompt")
         prompt = """
             Eres un asistente para tareas de preguntas y respuestas. Utiliza los siguientes fragmentos de contexto recuperado para responder la pregunta.
-            Asegúrate de que tu respuesta sea relevante para la pregunta y que se base únicamente en el contexto proporcionado.
-            Si no sabes la respuesta, simplemente di que no tienes suficiente información. Si tienes al menos algo de información, no digas que no la tienes.
+            Si no sabes la respuesta, simplemente di que no sabes.
+            Responde en viñetas. Asegúrate de que tu respuesta sea relevante para la pregunta y esté basada únicamente en el contexto proporcionado.
             Question: {question} 
             Context: {context} 
             Answer:
