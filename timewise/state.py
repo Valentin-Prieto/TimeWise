@@ -171,10 +171,18 @@ class State(rx.State):
     def chat_titles(self) -> list[str]:
         """Lisado de nombres de los chats."""
         return list(self.chats.keys())
+
     
-    async def ollama_process_question(self,question):
+    async def process_question(self,form_data: dict[str, str]):
         global vector_store
-        print(vector_store)
+        #print(vector_store)
+        print(form_data)
+        question = form_data["question"]
+        print(question)
+        if question == "":
+            print("no")
+            return
+        
         print(question)
         qa = QA(question=question, answer="")
         self.chats[self.current_chat].append(qa)            # Agrego la pregunta/prompt al listado de preguntas
@@ -210,16 +218,6 @@ class State(rx.State):
         self.chats = self.chats
         yield
         self.processing = False
-
-    
-    async def process_question(self,form_data: dict[str, str]):
-        print(form_data)
-        question = form_data["question"]
-        print(question)
-        if question == "":
-            print("no")
-            return
-        await self.ollama_process_question(question)
         
 
     
