@@ -47,7 +47,7 @@ class State(rx.State):
 
     ###### INGESTA DE DATOS #####
     
-    def save_uploaded_file(uploaded_file):
+    def save_uploaded_file(self, uploaded_file):
         """Cargar los archivos subidos a la carpeta 'UPLOAD_FOLDER'"""
         file_path = os.path.join(UPLOAD_FOLDER, uploaded_file.filename)
         with open(file_path, "wb") as f:
