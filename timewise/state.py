@@ -101,7 +101,7 @@ class State(rx.State):
     # def load_db(self, db_name, vector_store, embeddings):
     #     new_vector_store = FAISS.load_local(db_name, embeddings=embeddings, allow_dangerous_deserialization=True)
     
-    def delete_all_files():
+    def delete_all_files(self):
         directory = "/home/ubuntu/TimeWise/timewise/uploaded_files"
         # List all files in the directory
         for filename in os.listdir(directory):
