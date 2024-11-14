@@ -214,7 +214,7 @@ class State(rx.State):
         question = form_data["question"]
         if question == "":
             return
-        self.ollama_process_question(self, question)
+        self.ollama_process_question(question)
         
 
     
