@@ -188,14 +188,14 @@ class State(rx.State):
         self.processing = True
         yield
         #relevant_data = self.vector_store.search(query=question, search_type='similarity')
-        retriever = vector_store.as_retriever(search_type="similarity", search_kwargs = {'k': 3, 'fetch_k': 100,'lambda_mult': 1})
+        retriever = vector_store.as_retriever(search_type="distance", search_kwargs = {'k': 3, 'fetch_k': 100,'lambda_mult': 1})
         #retriever.invoke(question)
         model = ChatOllama(model="llama3.2:1b", base_url="http://localhost:11434")
         #prompt = hub.pull("rlm/rag-prompt")
         prompt = """
             You are an assistant for question-answering tasks. Use the following pieces of retrieved context to answer the question.
-            If you don't know the answer, just say that you don't know.
-            Answer in bullet points. Make sure your answer is relevant to the question and it is answered from the context only.
+            If you don't know the answer as a whole, just say that you don't have enough information.
+            Make sure your answer is relevant to the question and it is answered from the context only.
             Answer in spanish.
             Question: {question} 
             Context: {context} 
