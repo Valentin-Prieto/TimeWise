@@ -219,7 +219,7 @@ class State(rx.State):
         if question == "":
             print("no")
             return
-        self.ollama_process_question(question)
+        await self.ollama_process_question(question)
         
 
     
