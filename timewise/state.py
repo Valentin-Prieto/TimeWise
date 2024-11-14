@@ -164,7 +164,7 @@ class State(rx.State):
 
     def format_docs(self, docs):
         """Para transformar el contexto en cadena de texto"""
-        docs = self.docs
+        #docs = self.docs
         return "\n\n".join([doc.page_content for doc in docs])
 
     @rx.var
