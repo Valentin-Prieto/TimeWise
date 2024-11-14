@@ -71,7 +71,7 @@ class State(rx.State):
         return self.docs
 
     def generate_chunks(self, docs):
-        text_splitter = RecursiveCharacterTextSplitter(chunk_size=512, chunk_overlap=100)
+        text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=100)
         chunks = text_splitter.split_documents(docs)                                            # La cantidad de chunks es cuántos tenemos por cada documento (chunk = parte de la página)
         return chunks
     
@@ -188,9 +188,9 @@ class State(rx.State):
         self.processing = True
         yield
         #relevant_data = self.vector_store.search(query=question, search_type='similarity')
-        retriever = vector_store.as_retriever(search_type="similarity", search_kwargs = {'k': 2, 'fetch_k': 100,'lambda_mult': 1})
+        retriever = vector_store.as_retriever(search_type="mmr", search_kwargs = {'k': 2, 'fetch_k': 100,'lambda_mult': 1})
         #retriever.invoke(question)
-        model = ChatOllama(model="llama3.2:1b", base_url="http://localhost:11434")
+        model = ChatOllama(model="llama3.2:3b", base_url="http://localhost:11434")
         #prompt = hub.pull("rlm/rag-prompt")
         prompt = """
             Eres un asistente para tareas de preguntas y respuestas, que solo puede responder utilizando los siguientes fragmentos de contexto.
