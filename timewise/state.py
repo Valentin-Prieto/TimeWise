@@ -174,6 +174,7 @@ class State(rx.State):
     
     def ollama_process_question(self,question):
         global vector_store
+        print(question)
         qa = QA(question=question, answer="")
         self.chats[self.current_chat].append(qa)            # Agrego la pregunta/prompt al listado de preguntas
         self.processing = True
