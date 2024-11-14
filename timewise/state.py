@@ -216,6 +216,7 @@ class State(rx.State):
         question = form_data["question"]
         print(question)
         if question == "":
+            print("no")
             return
         self.ollama_process_question(question)
         
