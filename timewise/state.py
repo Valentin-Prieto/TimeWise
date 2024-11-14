@@ -194,7 +194,7 @@ class State(rx.State):
         #prompt = hub.pull("rlm/rag-prompt")
         prompt = """
             Eres un asistente para tareas de preguntas y respuestas, que solo puede responder utilizando los siguientes fragmentos de contexto.
-            Si no sabes la respuesta, simplemente di que no la sabes.
+            Si no sabes la respuesta, simplemente di que no cuentas con información suficiente como para contestarla.
             Responde en viñetas.
             Asegúrate de que tu respuesta sea relevante para la pregunta y de que sea respondida en base al contexto provisto.
             Manten la respuesta concisa.
