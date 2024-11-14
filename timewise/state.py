@@ -190,7 +190,7 @@ class State(rx.State):
         #relevant_data = self.vector_store.search(query=question, search_type='similarity')
         retriever = vector_store.as_retriever(search_type="mmr", search_kwargs = {'k': 3, 'fetch_k': 100,'lambda_mult': 1})
         #retriever.invoke(question)
-        model = ChatOllama(model="llama3.2:3b", base_url="http://localhost:11434")
+        model = ChatOllama(model="llama3.2:1b", base_url="http://localhost:11434")
         #prompt = hub.pull("rlm/rag-prompt")
         prompt = """
             Eres un asistente para tareas de preguntas y respuestas, que solo puede responder utilizando los siguientes fragmentos de contexto.
