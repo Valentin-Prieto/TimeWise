@@ -110,20 +110,20 @@ class State(rx.State):
         self.create_vector_db(chunks)
         self.upload_status = "¡Se procesaron y agregaron a la base de datos!"
 
-        # REVISAR !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        def delete_file(self, file_name:str):
-            self.knowledge_base_files = [file for file in self.knowledge_base_files if file!=file_name]
-            self.remove_embeddings(file_name)
+    # REVISAR !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    def delete_file(self, file_name:str):
+        self.knowledge_base_files = [file for file in self.knowledge_base_files if file!=file_name]
+        self.remove_embeddings(file_name)
 
-        def get_database_embeddings(self):
-            app_instance = self.get_app_instance()
-            database = app_instance.vectordb
-            return database
+    def get_database_embeddings(self):
+        app_instance = self.get_app_instance()
+        database = app_instance.vectordb
+        return database
         
-        def remove_embeddings(self, file_name):
-            """Eliminar los datos del archivo de la base de datos de vectores"""
-            database = self.get_database_embeddings()
-            database.delete(conditions={"file_name": file_name})
+    def remove_embeddings(self, file_name):
+        """Eliminar los datos del archivo de la base de datos de vectores"""
+        database = self.get_database_embeddings()
+        database.delete(conditions={"file_name": file_name})
 
     ##### CHATS #####
 
