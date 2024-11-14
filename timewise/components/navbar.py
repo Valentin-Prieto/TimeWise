@@ -184,7 +184,7 @@ def navbar():
                 sidebar_files(
                     rx.button(
                         rx.icon(
-                            tag="sliders-horizontal",
+                            tag="files",
                             color=rx.color("mauve", 12),
                         ),
                         background_color=rx.color("mauve", 6),
