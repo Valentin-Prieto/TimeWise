@@ -212,7 +212,9 @@ class State(rx.State):
 
     
     def process_question(self,form_data: dict[str, str]):
+        print(form_data)
         question = form_data["question"]
+        print(question)
         if question == "":
             return
         self.ollama_process_question(question)
