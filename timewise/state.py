@@ -71,7 +71,7 @@ class State(rx.State):
         return self.docs
 
     def generate_chunks(self, docs):
-        text_splitter = RecursiveCharacterTextSplitter(chunk_size=512, chunk_overlap=100)
+        text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=100)
         chunks = text_splitter.split_documents(docs)                                            # La cantidad de chunks es cuántos tenemos por cada documento (chunk = parte de la página)
         return chunks
     
@@ -193,11 +193,10 @@ class State(rx.State):
         model = ChatOllama(model="llama3.2:1b", base_url="http://localhost:11434")
         #prompt = hub.pull("rlm/rag-prompt")
         prompt = """
-            Eres un asistente para tareas de preguntas y respuestas, que solo puede responder utilizando los siguientes fragmentos de contexto.
-            Si no sabes la respuesta, simplemente di que no cuentas con información suficiente como para contestarla.
-            Responde en viñetas.
-            Asegúrate de que tu respuesta sea relevante para la pregunta y de que sea respondida en base al contexto provisto.
-            Manten la respuesta concisa.
+            You are an assistant for question-answering tasks. Use the following pieces of retrieved context to answer the question.
+            If you don't know the answer, just say that you don't know.
+            Answer in bullet points. Make sure your answer is relevant to the question and it is answered from the context only.
+            Answer in spanish.
             Question: {question} 
             Context: {context} 
             Answer:
