@@ -100,15 +100,33 @@ class State(rx.State):
 
     # def load_db(self, db_name, vector_store, embeddings):
     #     new_vector_store = FAISS.load_local(db_name, embeddings=embeddings, allow_dangerous_deserialization=True)
+    
+    def delete_all_files():
+        directory = "/home/ubuntu/TimeWise/timewise/uploaded_files"
+        # List all files in the directory
+        for filename in os.listdir(directory):
+            file_path = os.path.join(directory, filename)
+            if os.path.isfile(file_path):
+                os.remove(file_path)
+                print(f"{filename} has been deleted.")
+            else:
+                print(f"{filename} is not a file and was skipped.")
 
 
     async def handle_upload(self, uploaded_files:list[rx.UploadFile]):
+        self.delete_all_files()
+        print("ELIMINADOS # # #")
         for file in uploaded_files:
+            print("file", file)
             await self.save_uploaded_file(file)
         self.process_files(uploaded_files)
+        print("SELF DOCS", self.docs[0])
         chunks = self.generate_chunks(self.docs)
+        print("CHUNS", chunks[0])
         self.generate_vector_embedding()
+        print("vector embedding creado")
         self.create_vector_db(chunks)
+        print("vector db creado")
         self.upload_status = "¡Se procesaron y agregaron a la base de datos!"
 
     # REVISAR !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
