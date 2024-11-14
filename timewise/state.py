@@ -71,7 +71,7 @@ class State(rx.State):
         return self.docs
 
     def generate_chunks(self, docs):
-        text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=100)
+        text_splitter = RecursiveCharacterTextSplitter(chunk_size=512, chunk_overlap=100)
         chunks = text_splitter.split_documents(docs)                                            # La cantidad de chunks es cuántos tenemos por cada documento (chunk = parte de la página)
         return chunks
     
