@@ -189,19 +189,19 @@ class State(rx.State):
         yield
         print(vector_store)
         #relevant_data = self.vector_store.search(query=question, search_type='similarity')
-        retriever = vector_store.as_retriever(search_type="similarity", search_kwargs = {'k': 1, 'fetch_k': 100,'lambda_mult': 1})
+        retriever = vector_store.as_retriever(search_type="mmr", search_kwargs = {'k': 3, 'fetch_k': 200,'lambda_mult': 1})
         #retriever.invoke(question)
         model = ChatOllama(model="llama3.2:1b", base_url="http://localhost:11434")
-        #prompt = hub.pull("rlm/rag-prompt")
-        prompt = """
-            You are an assistant for question-answering tasks. Use the following pieces of retrieved context to answer the question.
-            Make sure your answer is relevant to the question and it is answered from the context only.
-            If you don't know the answer, just say that you don't have enough information. If you have at least some information, don't say that you don't.
-            Answer in spanish.
-            Question: {question} 
-            Context: {context} 
-            Answer:
-        """
+        prompt = hub.pull("rlm/rag-prompt")
+        # prompt = """
+        #     You are an assistant for question-answering tasks. Use the following pieces of retrieved context to answer the question.
+        #     Make sure your answer is relevant to the question and it is answered from the context only.
+        #     If you don't know the answer, just say that you don't have enough information. If you have at least some information, don't say that you don't.
+        #     Answer in spanish.
+        #     Question: {question} 
+        #     Context: {context} 
+        #     Answer:
+        # """
         prompt = ChatPromptTemplate.from_template(prompt)
         rag_chain = (
             {"context": retriever|self.format_docs, "question": RunnablePassthrough()}
