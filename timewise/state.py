@@ -61,6 +61,7 @@ class State(rx.State):
         for root, dirs, files in os.walk('uploaded_files'):
             # print(root, dirs, files)
             for file in files:
+                self.knowledge_base_files.append(file)
                 if file.endswith('.pdf'):
                     pdfs.append(os.path.join(root, file))
         self.docs = []
@@ -128,12 +129,11 @@ class State(rx.State):
         self.process_files(uploaded_files)
         print("SELF DOCS", self.docs[0])
         chunks = self.generate_chunks(self.docs)
-        #print("CHUNS", chunks)
+        print("CHUNS", chunks[0])
         self.generate_vector_embedding()
         print("vector embedding creado")
         self.create_vector_db(chunks)
         print("vector db creado")
-        self.knowledge_base_files.append(self.pdf_filename)
         self.upload_status = "¡Se procesaron y agregaron a la base de datos!"
         self.processing_pdf = False
 
