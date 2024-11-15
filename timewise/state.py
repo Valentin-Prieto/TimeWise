@@ -44,6 +44,7 @@ class State(rx.State):
     upload_status: str = ""
     #vector_store: FAISS
     docs: List = []
+    processing_pdf: bool = False
 
     ###### INGESTA DE DATOS #####
     
@@ -111,9 +112,14 @@ class State(rx.State):
                 print(f"{filename} has been deleted.")
             else:
                 print(f"{filename} is not a file and was skipped.")
+        self.knowledge_base_files = []
 
 
     async def handle_upload(self, uploaded_files:list[rx.UploadFile]):
+        if not uploaded_files:
+            self.upload_status = "No hay archivos cargados"
+            return
+        self.processing_pdf = True
         self.delete_all_files()
         print("ELIMINADOS # # #")
         for file in uploaded_files:
@@ -127,7 +133,9 @@ class State(rx.State):
         print("vector embedding creado")
         self.create_vector_db(chunks)
         print("vector db creado")
+        self.knowledge_base_files.append(self.pdf_filename)
         self.upload_status = "¡Se procesaron y agregaron a la base de datos!"
+        self.processing_pdf = False
 
     # REVISAR !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     def delete_file(self, file_name:str):

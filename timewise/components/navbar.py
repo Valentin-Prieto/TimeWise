@@ -1,5 +1,6 @@
 import reflex as rx
 from timewise.state import State
+from timewise.components import loading_icon
 
 def chats(chat: str) -> rx.Component:
     """Diseño del listado de chats."""
@@ -99,7 +100,11 @@ def sidebar_files(trigger) -> rx.Component:
                     rx.foreach(State.knowledge_base_files, lambda file: files(file)),
                     rx.hstack(
                         rx.button(
-                            "Procesar",
+                            rx.cond(
+                                State.processing_pdf,
+                                loading_icon(height="1em"),
+                                rx.text("Procesar"),
+                            ),
                             on_click=State.handle_upload(rx.upload_files(upload_id="pdf_upload")),
                             align_self="flex-start",
                         ),
