@@ -121,6 +121,7 @@ class State(rx.State):
             self.upload_status = "No hay archivos cargados"
             return
         self.processing_pdf = True
+        yield
         self.delete_all_files()
         print("ELIMINADOS # # #")
         for file in uploaded_files:
@@ -198,7 +199,7 @@ class State(rx.State):
         yield
         print(vector_store)
         #relevant_data = self.vector_store.search(query=question, search_type='similarity')
-        retriever = vector_store.as_retriever(search_type="mmr", search_kwargs = {'k': 5, 'fetch_k': 100,'lambda_mult': 1})
+        retriever = vector_store.as_retriever(search_type="mmr", search_kwargs = {'k': 3, 'fetch_k': 200,'lambda_mult': 1})
         #retriever.invoke(question)
         model = ChatOllama(model="llama3.2:1b", base_url="http://localhost:11434")
         #prompt = hub.pull("rlm/rag-prompt")
