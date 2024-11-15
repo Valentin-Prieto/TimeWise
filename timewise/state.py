@@ -128,7 +128,7 @@ class State(rx.State):
         self.process_files(uploaded_files)
         print("SELF DOCS", self.docs[0])
         chunks = self.generate_chunks(self.docs)
-        print("CHUNS", chunks[0])
+        #print("CHUNS", chunks)
         self.generate_vector_embedding()
         print("vector embedding creado")
         self.create_vector_db(chunks)
