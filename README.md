@@ -60,4 +60,4 @@ Entre los comentarios, surgieron los siguientes:
 
 Estos comentarios nos permiten redefinir y mejorar nuestro MVP de cara a nuestros primeros clientes.
 
-[Ver video](assets/8EDEF273-6B20-4B19-95B6-208D5DF8F427.MOV)
+[Ver video](https://drive.google.com/file/d/1zKvzqHRofLQ7ywLuvGTSq90ccddyrII2/view?usp=share_link)
